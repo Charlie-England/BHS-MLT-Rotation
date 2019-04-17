@@ -68,6 +68,6 @@ test_list = run_list_randomizer()
 while max(test_list[1].values()) - min(test_list[1].values()) > 2:
     test_list = run_list_randomizer()
 outfile = open("bhamltlist.csv", "w")
-for name in test_list:
-    outfile.write("{},\n".format(name))
+for nm in test_list:
+    outfile.write("{},".format(nm))
 outfile.close()
