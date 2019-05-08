@@ -75,6 +75,11 @@ test_list = run_list_randomizer()
 while max(test_list[1].values()) - min(test_list[1].values()) > 2: #equitability check, looks at max and min and keeps calling list randomizer until everyone is within '2'
     test_list = run_list_randomizer()
 with open("bhamltlist.csv", "w") as of:
+    day = 1
     for nm in test_list[0]:
         of.write(f"{nm},")
+        day+=1
+        if day == 6:
+            of.write(",,")
+            day = 1
  
