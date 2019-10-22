@@ -35,15 +35,29 @@ def check_list(name_choice, count, rev, prov_list, bhaurgentlist):
 
 
 def prov_lst_dict():
+    """
+        takes nothing but iterates through the provider list and creates a dictionary with key=name and value=0
+        used for checking equitibility later on
+    """
     rtrn_dict = {}
     for name in prov_list:
         rtrn_dict.update({name:0})
     return rtrn_dict
 
 def run_list_randomizer():
+    """
+        main function which will call other functions to complete the task
+        will create a list of length run_number, checking the reverse length with is based on 1/2 of the number of providers
+        will shuffle a list of names and pop these off randomly to determine the name
+            will then check the name to see if they work that day/can have a bha hold, if yes will reach out to check_list function
+            if the check_list function returns True, it will append the name selected to the list, will add 1 to the num_assigned dictonary for that name
+        if the list empties = no one is appropriate for that spot, will break out of function and try again from scratch
+            breaks out of function by returning a list of dictionaries, the difference being 4 which will be rejected in the while max line
+        if everything goes through, at the end it will return a list of dictionaries, item[0] is the list while item[1] is the num_assigned
+    """
     global prov_list
     bhaurgentlist = []
-    num_assigned = prov_lst_dict()
+    num_assigned = prov_lst_dict() #this will help to keep track of how many times people have been assigned for equitability check later
     day = 1
     count = 1
     rev_len = int(len(providers)*(.5)+1) #reverse length, the amount of days before a provider can be selected again. Based on 1/2 the number of providers, 6 providers = 3 days
