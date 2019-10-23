@@ -1,4 +1,5 @@
 import random
+from datetime import datetime
 '''providers dictionary: Name:[Days Working] 1=Monday,2=Tuesday,3=Wednesday,4=Thursday,5=Friday'''
 providers = {"Brenda": [1, 3, 4, 5], "Jody": [2, 3, 4, 5], "Jarim": [1, 2, 3, 4, 5], "Katrina": [1, 2, 4], "Mike": [1, 2, 3, 4],
              "Susan": [2, 3, 4, 5], "Margaret": [1, 2, 3, 4], "Dael": [1, 2, 3, 4], "Lynette": [1, 2, 3, 4, 5]}
@@ -86,7 +87,8 @@ def run_list_randomizer():
 test_list = run_list_randomizer()
 while max(test_list[1].values()) - min(test_list[1].values()) > 2: #equitability check, looks at max and min and keeps calling list randomizer until everyone is within '2'
     test_list = run_list_randomizer()
-with open("bhamltlist.csv", "w") as of:
+opt_file = "fac_bha_holds" + datetime.now().strftime('%m-%d-%y') + '.csv'
+with open(opt_file, "w") as of:
     day = 1
     for nm in test_list[0]:
         of.write(f"{nm},")
