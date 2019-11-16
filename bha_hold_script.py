@@ -15,6 +15,12 @@ fac_providers = {"Brenda": [1, 3, 4, 5], "Jody": [2, 3, 4, 5], "Jarim": [1, 2, 3
 location_list = ['fac','rfm']
 
 def get_parse_args():
+    """
+    Used to parse arguments and provide error/entry checking returns 2 parsed arguments
+    options.location is the 3 digit location code and will throw an error if no valid input is added
+    this function will also check to make sure that the 3 digit location code is in the location_list
+    options.number is the number of days out that will be built, the default is 200
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("-l","--location", dest="location", help="3 digit location code")
     parser.add_argument("-n","--number", dest="number", help="Number of days that will be given in the output csv file", default=200)
@@ -99,10 +105,18 @@ def run_list_randomizer(number,prov_list,providers):
                         day = 1
                     break
         if exp_list == []:
+            #only run if options have been run out
+            #returns a list with None and a dictionary with bad1 and bad2 as keys and 1 and 5 as values
+            #this will break the loop and trigger the randomizer to run again from scratch
             return [None, {'bad':1,"bad2":5}]
     return [bhaurgentlist, num_assigned]
 
 def main(location, number_out):
+    """
+    providers the main function to call that will reach out to other functions
+    is responsible for sorting through the parser as well as testing the output of the randomizer
+    once an equitiable rotation has been achieved it will create a csv file and write to it
+    """
     # location, number_out = get_parse_args()
     number_out = int(number_out)
     if location.lower() == "fac":
